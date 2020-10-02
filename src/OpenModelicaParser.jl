@@ -14,16 +14,22 @@ function isDerCref(exp::Absyn.Exp)::Bool
     _ => false
   end
 end
-  
+
 const _libpath = if Sys.iswindows()
   #global ajaj = realpath(Settings.getInstallationDirectoryPath())
   local instDir = INSTALLATION_DIRECTORY_PATH
-  joinpath(instDir, "lib", "ext", "libomparse-julia.dll")
+  @static if VERSION >= v"1.5.1"
+    joinpath(instDir, "lib", "ext", "libomparse-julia_v151.dll")
+  elseif VERSION >= v"1.4.0"
+    joinpath(instDir, "lib", "ext", "libomparse-julia_v140.dll")
+  else
+    joinpath(instDir, "lib", "ext", "libomparse-julia.dll")
+  end
 else
   #joinpath(Settings.getInstallationDirectoryPath(), "/lib/ext/libomparse-julia.so")
 end
-  
-function parseFile(fileName::String, acceptedGram::Int64 = 0)::Absyn.Program
+
+function parseFile(fileName::String, acceptedGram::Int64 = 1)::Absyn.Program
   local res = ccall((:parseFile, _libpath), Any, (String,Int64), fileName, acceptedGram)
   if res == nothing
     throw(ParseError())
@@ -33,5 +39,5 @@ end
 
 #p = parseFile("Banan.mo")
 #@show p
-  
+
 end
