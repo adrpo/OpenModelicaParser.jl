@@ -4,7 +4,7 @@ import Absyn, MetaModelica, ImmutableList
 using MetaModelica
 
 #import Settings
-INSTALLATION_DIRECTORY_PATH = realpath(realpath(Base.find_package("OpenModelicaParser") * "./../.."))
+INSTALLATION_DIRECTORY_PATH = realpath(realpath(Base.find_package("OpenModelicaParser") * "/../.."))
 
 struct ParseError end
 
