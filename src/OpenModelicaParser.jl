@@ -26,7 +26,8 @@ const _libpath = if Sys.iswindows()
     joinpath(instDir, "lib", "ext", "libomparse-julia.dll")
   end
 else
-  #joinpath(Settings.getInstallationDirectoryPath(), "/lib/ext/libomparse-julia.so")
+  local instDir = INSTALLATION_DIRECTORY_PATH
+  joinpath(instDir, "lib", "ext", "libomparse-julia.so")
 end
 
 function parseFile(fileName::String, acceptedGram::Int64 = 1)::Absyn.Program
