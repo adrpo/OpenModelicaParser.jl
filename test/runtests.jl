@@ -20,6 +20,15 @@ end
     false
   end
 end
+  
+@test begin
+  try
+    res = OpenModelicaParser.parseFile("Casc12800.mo")
+    true
+  catch
+    false
+  end
+end
 
 end
 
