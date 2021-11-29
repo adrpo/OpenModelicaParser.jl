@@ -32,13 +32,10 @@ end
 
 function parseFile(fileName::String, acceptedGram::Int64 = 1)::Absyn.Program
   local res = ccall((:parseFile, _libpath), Any, (String,Int64), fileName, acceptedGram)
-  if res == nothing
+  if res === nothing
     throw(ParseError())
   end
   res
 end
-
-#p = parseFile("Banan.mo")
-#@show p
 
 end
