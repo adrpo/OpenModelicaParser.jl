@@ -34,13 +34,16 @@ end
 
 
 @testset "Standard Library" begin
-
-@test begin
-  try
-    res = OpenModelicaParser.parseFile("msl.mo")
-    true
-  catch
-    false
+  if Sys.iswindows()
+    @test begin
+      try
+        res = OpenModelicaParser.parseFile("msl.mo")
+        true
+      catch
+        false
+      end
+    end
+  else
+    @info "MSL is currently only supported on Windows"
   end
-end
 end
